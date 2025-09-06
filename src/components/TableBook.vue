@@ -47,7 +47,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <h3 class="font-semibold text-center mb-3">{{ book.title }}</h3>
+  <h3 class="p-2 font-semibold text-center mb-3">{{ book.title }}</h3>
   <div class="overflow-auto max-h-80">
     <table class="min-w-full text-left text-xs sm:text-sm">
       <thead class="sticky top-0 bg-slate-100 text-slate-600">
