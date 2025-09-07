@@ -1,9 +1,9 @@
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed } from "vue";
+import { defineComponent, ref, onMounted, computed, watchEffect } from "vue";
 import TableBook from "./components/TableBook.vue";
 import ListBooks from "./components/ListBooks.vue";
 import { key } from "@/store";
-import { GET_HISTORY, useStore } from "@/store";
+import { GET_FULL_HISTORY, GET_BOOKS_OF_YEAR, useStore } from "@/store";
 
 export default defineComponent({
   name: "App",
@@ -11,16 +11,20 @@ export default defineComponent({
     TableBook,
     ListBooks,
   },
-
   setup() {
-    const store = useStore();
-    store.dispatch(GET_HISTORY);
+    const yearSelect = ref(new Date().getFullYear());
 
-    const yearSelect = ref("");
+    const store = useStore();
+    store.dispatch(GET_FULL_HISTORY);
+
+    watchEffect(() => {
+      store.dispatch(GET_BOOKS_OF_YEAR, yearSelect.value);
+    });
 
     return {
       yearSelect,
       history: computed(() => store.state.history),
+      books: computed(() => store.state.booksOfYear),
     };
   },
 });
@@ -40,8 +44,8 @@ export default defineComponent({
         </option>
       </select>
     </div>
-    <TableBook :book="history[0].books[19]" />
-    <ListBooks :books="history[0].books" />
+    <!-- <TableBook :book="history[0].books[19]" /> -->
+    <ListBooks :books="books" />
   </div>
 </template>
 
