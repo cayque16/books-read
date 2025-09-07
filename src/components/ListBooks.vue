@@ -15,8 +15,6 @@ export default defineComponent({
 
 <template>
   <ol reversed class="p-8 list-decimal pl-6 space-y-1">
-    <a v-for="book in books.slice().reverse()" :href="book.id">
-      <li>{{ book.title }}</li>
-    </a>
+    <li v-for="book in books.slice().reverse()">{{ book.title }}</li>
   </ol>
 </template>
