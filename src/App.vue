@@ -3,7 +3,7 @@ import { defineComponent, ref, onMounted, computed, watchEffect } from "vue";
 import TableBook from "./components/TableBook.vue";
 import ListBooks from "./components/ListBooks.vue";
 import { key } from "@/store";
-import { GET_FULL_HISTORY, GET_BOOKS_OF_YEAR, useStore } from "@/store";
+import { GET_FULL_HISTORY, useStore } from "@/store";
 
 export default defineComponent({
   name: "App",
@@ -13,18 +13,22 @@ export default defineComponent({
   },
   setup() {
     const yearSelect = ref(new Date().getFullYear());
+    const index = ref(0);
 
     const store = useStore();
-    store.dispatch(GET_FULL_HISTORY);
 
     watchEffect(() => {
-      store.dispatch(GET_BOOKS_OF_YEAR, yearSelect.value);
+      store.dispatch(GET_FULL_HISTORY, {
+        year: yearSelect.value,
+        index: index.value,
+      });
     });
 
     return {
       yearSelect,
       history: computed(() => store.state.history),
       books: computed(() => store.state.booksOfYear),
+      book: computed(() => store.state.currentBook),
     };
   },
 });
@@ -44,7 +48,7 @@ export default defineComponent({
         </option>
       </select>
     </div>
-    <!-- <TableBook :book="history[0].books[19]" /> -->
+    <TableBook :book="book" />
     <ListBooks :books="books" />
   </div>
 </template>
