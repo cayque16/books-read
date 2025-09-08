@@ -2,6 +2,7 @@
 import { defineComponent, ref, computed, watchEffect } from "vue";
 import TableBook from "./components/TableBook.vue";
 import ListBooks from "./components/ListBooks.vue";
+import Footer from "./components/Footer.vue";
 import { GET_FULL_HISTORY, useStore } from "./store";
 
 export default defineComponent({
@@ -9,6 +10,7 @@ export default defineComponent({
   components: {
     TableBook,
     ListBooks,
+    Footer,
   },
   setup() {
     const yearSelect = ref(new Date().getFullYear());
@@ -49,6 +51,7 @@ export default defineComponent({
     </div>
     <TableBook :book="book" />
     <ListBooks :books="books" />
+    <Footer />
   </div>
 </template>
 
