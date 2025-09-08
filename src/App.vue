@@ -1,9 +1,8 @@
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed, watchEffect } from "vue";
+import { defineComponent, ref, computed, watchEffect } from "vue";
 import TableBook from "./components/TableBook.vue";
 import ListBooks from "./components/ListBooks.vue";
-import { key } from "@/store";
-import { GET_FULL_HISTORY, useStore } from "@/store";
+import { GET_FULL_HISTORY, useStore } from "./store";
 
 export default defineComponent({
   name: "App",

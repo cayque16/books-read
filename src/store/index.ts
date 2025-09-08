@@ -1,7 +1,7 @@
 import type { InjectionKey } from "vue";
 import type IHistory from "../interfaces/IHistory";
-import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import type { ActionContext } from "vuex";
+import { createStore, useStore as vuexUseStore } from "vuex";
+import type { Store, ActionContext } from "vuex";
 import type IBook from "../interfaces/IBook";
 
 export const GET_FULL_HISTORY = "GET_FULL_HISTORY";
@@ -24,6 +24,7 @@ export const store = createStore<State>({
   state: {
     history: [],
     booksOfYear: [],
+    currentBook: { id: 0, title: "", startDate: "", totalPage: 0 },
   },
   mutations: {
     [SET_FULL_HISTORY](state: State, history: IHistory[]) {
