@@ -14,15 +14,11 @@ export default defineComponent({
   },
   setup() {
     const yearSelect = ref(new Date().getFullYear());
-    const index = ref(0);
 
     const store = useStore();
 
     watchEffect(() => {
-      store.dispatch(GET_FULL_HISTORY, {
-        year: yearSelect.value,
-        index: index.value,
-      });
+      store.dispatch(GET_FULL_HISTORY, yearSelect.value);
     });
 
     return {

@@ -40,16 +40,16 @@ export const store = createStore<State>({
   actions: {
     async [GET_FULL_HISTORY](
       { commit }: ActionContext<State, State>,
-      payload: { year: number; index: number }
+      year: number
     ) {
       try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("Error when searching history");
         const data = await response.json();
         const booksOfYear = data["data"].filter(
-          (t: IHistory) => t.year == payload.year
+          (t: IHistory) => t.year == year
         )[0].books;
-        const index = payload.index || booksOfYear.length - 1;
+        const index = booksOfYear.length - 1;
         commit(SET_FULL_HISTORY, data["data"]);
         commit(SET_BOOKS_OF_YEAR, booksOfYear);
         commit(SET_CURRENT_BOOK, booksOfYear[index]);
