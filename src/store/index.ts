@@ -46,13 +46,26 @@ export const store = createStore<State>({
         const response = await fetch(url);
         if (!response.ok) throw new Error("Error when searching history");
         const data = await response.json();
-        const booksOfYear = data["data"].filter(
-          (t: IHistory) => t.year == year
-        )[0].books;
-        const index = booksOfYear.length - 1;
-        commit(SET_FULL_HISTORY, data["data"]);
-        commit(SET_BOOKS_OF_YEAR, booksOfYear);
-        commit(SET_CURRENT_BOOK, booksOfYear[index]);
+
+        const historyData = data["data"] || [];
+        commit(SET_FULL_HISTORY, historyData);
+
+        const yearData = historyData.find((t: IHistory) => t.year == year);
+
+        if (yearData && yearData.books && yearData.books.length > 0) {
+          const booksOfYear = yearData.books;
+          const index = booksOfYear.length - 1;
+          commit(SET_BOOKS_OF_YEAR, booksOfYear);
+          commit(SET_CURRENT_BOOK, booksOfYear[index]);
+        } else {
+          commit(SET_BOOKS_OF_YEAR, []);
+          commit(SET_CURRENT_BOOK, {
+            id: 0,
+            title: "",
+            startDate: "",
+            totalPage: 0,
+          });
+        }
       } catch (error) {
         console.error(error);
       }
