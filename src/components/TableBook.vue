@@ -24,14 +24,14 @@ export default defineComponent({
     };
 
     const returnProgress = (index: number): string => {
-      let percent = 5;
+      let percent = 100 / DAYS_TO_READ;
       let result = String(percent * index) + "%";
 
       if (props.book.totalPage > 0) {
         percent = Math.floor(props.book.totalPage / DAYS_TO_READ);
         const rest = props.book.totalPage % DAYS_TO_READ;
-        const addOne = index <= rest ? 1 : rest;
-        result = String(percent * index + addOne);
+        const addRest = index <= rest ? index : rest;
+        result = String(percent * index + addRest);
       }
 
       return result;
