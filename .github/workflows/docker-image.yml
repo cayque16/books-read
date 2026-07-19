@@ -1,0 +1,34 @@
+name: Docker Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login no GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build the Docker image
+        run: |
+          docker build \
+            -t ghcr.io/cayque16/books-read/site:latest \
+            -t ghcr.io/cayque16/books-read/site:${{ github.sha }} .
+      - name: Push Image
+        run: |
+          docker push ghcr.io/cayque16/books-read/site:latest
+          docker push ghcr.io/cayque16/books-read/site:${{ github.sha }}
