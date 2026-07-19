@@ -26,9 +26,9 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build \
-            -t ghcr.io/cayque16/books-read/site:latest \
-            -t ghcr.io/cayque16/books-read/site:${{ github.sha }} .
+            -t ghcr.io/cayque16/books-read/books:latest \
+            -t ghcr.io/cayque16/books-read/books:${{ github.sha }} .
       - name: Push Image
         run: |
-          docker push ghcr.io/cayque16/books-read/site:latest
-          docker push ghcr.io/cayque16/books-read/site:${{ github.sha }}
+          docker push ghcr.io/cayque16/books-read/books:latest
+          docker push ghcr.io/cayque16/books-read/books:${{ github.sha }}
