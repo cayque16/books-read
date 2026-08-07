@@ -4,7 +4,7 @@
     <a
       href="https://github.com/cayque16/books-read"
       target="_blank"
-      class="text-black hover:text-slate-500"
+      class="text-black dark:text-slate-100 hover:text-slate-500"
     >
       Powered by Cayque Santos
     </a>
