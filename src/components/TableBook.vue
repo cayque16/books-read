@@ -13,10 +13,9 @@ export default defineComponent({
   setup(props) {
     const DAYS_TO_READ = 20;
     const returnDateFormat = (daysToAdd: number): string => {
-      const date = new Date(props.book.startDate);
+      const date = new Date(props.book.startDate + " 00:00:00");
 
-      const sumDate = date.getDate() >= 9 ? daysToAdd : daysToAdd - 1;
-      date.setDate(date.getDate() + sumDate);
+      date.setDate(date.getDate() + daysToAdd - 1);
 
       const day = String(date.getDate()).padStart(2, "0");
       const month = String(date.getMonth() + 1).padStart(2, "0");
